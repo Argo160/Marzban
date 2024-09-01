@@ -6,7 +6,8 @@ if [[ $EUID -ne 0 ]]; then
     echo "Use sudo -i to change user to root"
     exit 1
 fi
-
+SWAP_PATH="/swapfile"
+SWAP_SIZE=2G
 function main_menu {
     clear
     cd
@@ -57,7 +58,18 @@ function main_menu {
             echo -e "\033[31mdocker is not installed.\033[0m"  # Print in red
         fi        
 
-        
+        ## Make Swap
+        sudo fallocate -l $SWAP_SIZE $SWAP_PATH  ## Allocate size
+        sudo chmod 600 $SWAP_PATH                ## Set proper permission
+        sudo mkswap $SWAP_PATH                   ## Setup swap         
+        sudo swapon $SWAP_PATH                   ## Enable swap
+        echo "$SWAP_PATH   none    swap    sw    0   0" >> /etc/fstab ## Add to fstab
+        echo 
+        green_msg 'SWAP Created Successfully.'
+        echo -e "\e[32m\n\ndSWAP Created Successfully.\n\e[0m"  # Green color for UP
+        echo
+        sleep 0.5
+
         git clone https://github.com/Gozargah/Marzban-node
         mkdir /var/lib/marzban-node
         echo -e "\e[32mMarzban-Node Cloned Successfully.\e[0m"  # Green color for UP
