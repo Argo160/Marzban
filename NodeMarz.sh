@@ -20,7 +20,7 @@ function main_menu {
         echo -e "\033[33m\n\nInstalling Curl...\033[0m" #yellow Color
         apt-get install -y curl
         if command -v curl > /dev/null; then
-            echo -e "\e[32m/n/nCurl Installed.\e[0m"  # Green color for UP
+            echo -e "\e[32m\n\nCurl Installed.\e[0m"  # Green color for UP
         else
             echo -e "\033[31mCurl is not installed.\033[0m"  # Print in red
         fi
@@ -28,7 +28,7 @@ function main_menu {
         echo -e "\033[33m\n\nInstalling socat...\033[0m" #yellow Color
         apt-get install -y socat
         if command -v socat > /dev/null; then
-            echo -e "\e[32m/n/nsocat Installed.\e[0m"  # Green color for UP
+            echo -e "\e[32m\n\nsocat Installed.\e[0m"  # Green color for UP
         else
             echo -e "\033[31msocat is not installed.\033[0m"  # Print in red
         fi
@@ -36,7 +36,7 @@ function main_menu {
         echo -e "\033[33m\n\nInstalling unzip...\033[0m" #yellow Color
         apt-get install -y unzip
         if command -v unzip > /dev/null; then
-            echo -e "\e[32m/n/nunzip Installed.\e[0m"  # Green color for UP
+            echo -e "\e[32m\n\nunzip Installed.\e[0m"  # Green color for UP
         else
             echo -e "\033[31munzip is not installed.\033[0m"  # Print in red
         fi
@@ -44,7 +44,7 @@ function main_menu {
         echo -e "\033[33m\n\nInstalling git...\033[0m" #yellow Color
         apt-get install -y git
         if command -v git > /dev/null; then
-            echo -e "\e[32m/n/ngit Installed.\e[0m"  # Green color for UP
+            echo -e "\e[32m\n\ngit Installed.\e[0m"  # Green color for UP
         else
             echo -e "\033[31mgit is not installed.\033[0m"  # Print in red
         fi
