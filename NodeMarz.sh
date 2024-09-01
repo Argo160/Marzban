@@ -433,7 +433,6 @@ EOF
         docker compose up -d
         sleep 1
    
-        yellow_msg 'Reboot now? (Recommended) (y/n)'
         read -p "Reboot now? (Recommended) (y/n)" reb
         echo 
         while true; do
