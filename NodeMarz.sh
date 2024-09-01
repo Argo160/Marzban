@@ -67,10 +67,8 @@ function main_menu {
             exit 1
         fi
 
-
-          
- 
-      read -n 1 -s -r -p "Press any key to continue"
-      echo
+        docker compose up -d
+        read -n 1 -s -r -p "Press any key to continue"
+        echo
     fi
 }
