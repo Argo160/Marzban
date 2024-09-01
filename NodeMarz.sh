@@ -24,45 +24,84 @@ function main_menu {
     # Check if the input is "y"
     if [ "$pp_lowercase" = "y" ]; then
         apt-get update && apt-get upgrade -y
+        echo
         echo -e "\e[32mSystem Updated and Upgraded.\e[0m"  # Green color for UP
-        echo -e "\033[33m\n\nInstalling Curl...\033[0m" #yellow Color
+        echo
+        sleep 0.5
+        echo -e "\033[33mInstalling Curl...\033[0m" #yellow Color
         apt-get install -y curl
         if command -v curl > /dev/null; then
-            echo -e "\e[32m\n\nCurl Installed.\e[0m"  # Green color for UP
+            echo
+            echo -e "\e[32mCurl Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
         else
+            echo
             echo -e "\033[31mCurl is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
         fi
         
-        echo -e "\033[33m\n\nInstalling socat...\033[0m" #yellow Color
+        echo
+        echo -e "\033[33mInstalling socat...\033[0m" #yellow Color
+        echo
+        sleep 0.5
         apt-get install -y socat
         if command -v socat > /dev/null; then
-            echo -e "\e[32m\n\nsocat Installed.\e[0m"  # Green color for UP
+            echo
+            echo -e "\e[32msocat Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
         else
+            echo
             echo -e "\033[31msocat is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
         fi
-        
-        echo -e "\033[33m\n\nInstalling unzip...\033[0m" #yellow Color
+
+        echo
+        echo -e "\033[33mInstalling unzip...\033[0m" #yellow Color
         apt-get install -y unzip
         if command -v unzip > /dev/null; then
-            echo -e "\e[32m\n\nunzip Installed.\e[0m"  # Green color for UP
+            echo
+            echo -e "\e[32munzip Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
         else
+            echo
             echo -e "\033[31munzip is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
         fi
 
-        echo -e "\033[33m\n\nInstalling git...\033[0m" #yellow Color
+        echo
+        echo -e "\033[33mInstalling git...\033[0m" #yellow Color
         apt-get install -y git
         if command -v git > /dev/null; then
-            echo -e "\e[32m\n\ngit Installed.\e[0m"  # Green color for UP
+            echo
+            echo -e "\e[32mgit Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
         else
+            echo
             echo -e "\033[31mgit is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
         fi
 
-        echo -e "\033[33m\n\nInstalling Docker...\033[0m" #yellow Color
+        echo
+        echo -e "\033[33mInstalling Docker...\033[0m" #yellow Color
         curl -fsSL https://raw.githubusercontent.com/manageitir/docker/main/install-ubuntu.sh | sh
         if command -v docker > /dev/null; then
-            echo -e "\e[32m\n\ndocker Installed.\e[0m"  # Green color for UP
+            echo
+            echo -e "\e[32mdocker Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
         else
+            echo
             echo -e "\033[31mdocker is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
         fi        
 
         ## Make Swap
@@ -73,7 +112,7 @@ function main_menu {
         echo "$SWAP_PATH   none    swap    sw    0   0" >> /etc/fstab ## Add to fstab
         echo 
         green_msg 'SWAP Created Successfully.'
-        echo -e "\e[32m\n\ndSWAP Created Successfully.\n\e[0m"  # Green color for UP
+        echo -e "\e[32mdSWAP Created Successfully.\n\e[0m"  # Green color for UP
         echo
         sleep 0.5
 
@@ -82,12 +121,12 @@ function main_menu {
         cp $SYS_PATH /etc/sysctl.conf.bak
 
         echo
-        echo -e "\033[33m\n\nDefault sysctl.conf file Saved. Directory: /etc/sysctl.conf.bak\033[0m" #yellow Color
+        echo -e "\033[33mDefault sysctl.conf file Saved. Directory: /etc/sysctl.conf.bak\033[0m" #yellow Color
         echo 
         sleep 1
 
         echo 
-        echo -e "\033[33m\n\nOptimizing the Network...\033[0m" #yellow Color
+        echo -e "\033[33mOptimizing the Network...\033[0m" #yellow Color
         echo 
         sleep 0.5
 
@@ -346,7 +385,7 @@ EOF
         git clone https://github.com/Gozargah/Marzban-node
         mkdir /var/lib/marzban-node
         echo -e "\e[32mMarzban-Node Cloned Successfully.\e[0m"  # Green color for UP
-        sleep 5
+        sleep 1
         clear
         echo -e "\e[32mDo you wish to install xray version 1.8.20? (y/n)\e[0m"  # Green color for UP
         read -p "Y = Version 1.8.20 | N = Current Version: " ver
@@ -392,8 +431,24 @@ EOF
         fi
 
         docker compose up -d
-        read -n 1 -s -r -p "Press any key to continue"
-        echo
+        sleep 1
+   
+        yellow_msg 'Reboot now? (Recommended) (y/n)'
+        read -p "Reboot now? (Recommended) (y/n)" reb
+        echo 
+        while true; do
+            echo 
+            if [[ "$reb" == 'y' || "$reb" == 'Y' ]]; then
+                sleep 0.5
+                reboot
+                exit 0
+            fi
+            if [[ "$reb" == 'n' || "$reb" == 'N' ]]; then
+                break
+            fi
+        done    
+    
+    
     fi
 }
 main_menu
