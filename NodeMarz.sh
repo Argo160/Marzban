@@ -41,7 +41,32 @@ function main_menu {
             cd ~/Marzban-node
             curl -o docker-compose.yml https://raw.githubusercontent.com/Argo160/Marzban/main/docCurrent.yml
         fi
-        
+
+        # Define the file path where the certificate will be saved
+        CERT_FILE="/var/lib/marzban-node/ssl_client_cert.pem"
+
+        # Prompt the user to input the certificate
+        echo "Please paste the certificate below, then press Enter twice:"
+
+        # Read the certificate content into a variable
+        CERT_CONTENT=""
+        while IFS= read -r line; do
+            # Break the loop if the user presses Enter twice (empty line)
+            [ -z "$line" ] && break
+            CERT_CONTENT="${CERT_CONTENT}${line}\n"
+        done
+
+        # Save the certificate content to the file
+        echo -e "$CERT_CONTENT" | sudo tee "$CERT_FILE" > /dev/null
+
+        # Confirm the certificate was saved
+        if [ -f "$CERT_FILE" ]; then
+            echo "Certificate saved to $CERT_FILE"
+        else
+            echo "Failed to save the certificate."
+            exit 1
+        fi
+
 
           
  
