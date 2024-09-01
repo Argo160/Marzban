@@ -48,8 +48,16 @@ function main_menu {
         else
             echo -e "\033[31mgit is not installed.\033[0m"  # Print in red
         fi
+
+        echo -e "\033[33m\n\nInstalling Docker...\033[0m" #yellow Color
         curl -fsSL https://raw.githubusercontent.com/manageitir/docker/main/install-ubuntu.sh | sh
-        echo -e "\e[32mDocker Installed Successfully.\e[0m"  # Green color for UP
+        if command -v docker > /dev/null; then
+            echo -e "\e[32m\n\ndocker Installed.\e[0m"  # Green color for UP
+        else
+            echo -e "\033[31mdocker is not installed.\033[0m"  # Print in red
+        fi        
+
+        
         git clone https://github.com/Gozargah/Marzban-node
         mkdir /var/lib/marzban-node
         echo -e "\e[32mMarzban-Node Cloned Successfully.\e[0m"  # Green color for UP
