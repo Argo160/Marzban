@@ -72,3 +72,4 @@ function main_menu {
         echo
     fi
 }
+main_menu
