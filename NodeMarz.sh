@@ -24,7 +24,7 @@ function main_menu {
         echo -e "\e[32mMarzban-Node Cloned Successfully.\e[0m"  # Green color for UP
         sleep 5
         clear
-        echo -e "\e[32mDo you wish to installe xray version 1.8.20? (y/n)\e[0m"  # Green color for UP
+        echo -e "\e[32mDo you wish to install xray version 1.8.20? (y/n)\e[0m"  # Green color for UP
         read -p "Y = Version 1.8.20 | N = Current Version: " ver
         # Convert input to lowercase
         ver_lowercase=$(echo "$ver" | tr '[:upper:]' '[:lower:]')
