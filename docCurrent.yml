@@ -12,3 +12,4 @@ services:
 
     volumes:
       - /var/lib/marzban-node:/var/lib/marzban-node
+      - /var/lib/marzban/assets:/usr/local/share/xray      
