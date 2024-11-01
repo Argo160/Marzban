@@ -395,15 +395,15 @@ EOF
         
         
         clear
-        echo -e "\e[32mDo you wish to install xray version 1.8.20? (y/n)\e[0m"  # Green color for UP
-        read -p "Y = Version 1.8.20 | N = Current Version: " ver
+        echo -e "\e[32mDo you wish to install xray version 1.8.24? (y/n)\e[0m"  # Green color for UP
+        read -p "Y = Version 1.8.24 | N = Current Version: " ver
         # Convert input to lowercase
         ver_lowercase=$(echo "$ver" | tr '[:upper:]' '[:lower:]')
         # Check if the input is "y"
         if [ "$ver_lowercase" = "y" ]; then
             cd
             mkdir -p /var/lib/marzban/xray-core && cd /var/lib/marzban/xray-core
-            wget https://github.com/XTLS/Xray-core/releases/download/v1.8.20/Xray-linux-64.zip
+            wget https://github.com/XTLS/Xray-core/releases/download/v1.8.24/Xray-linux-64.zip
             unzip Xray-linux-64.zip
             rm Xray-linux-64.zip
             cd ~/Marzban-node
