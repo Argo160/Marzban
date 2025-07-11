@@ -87,7 +87,8 @@ function main_menu {
         sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
         marzban cli admin create --sudo
         cd
-        unzip ac-backup-m.zip
+        mkdir -p "ac-backup-m"
+        unzip ac-backup-m.zip -d "ac-backup-m"
         cp -r /root/ac-backup-m/opt/marzban /opt/
         cp -r /root/ac-backup-m/opt/marzban/.env /opt/marzban/
         cp -r /root/ac-backup-m/var/lib/marzban /var/lib/
