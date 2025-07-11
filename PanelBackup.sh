@@ -89,6 +89,7 @@ function main_menu {
         cd
         unzip ac-backup-m.zip
         cp -r /root/ac-backup-m/opt/marzban /opt/
+        cp -r /root/ac-backup-m/opt/marzban/.env /opt/marzban/
         cp -r /root/ac-backup-m/var/lib/marzban /var/lib/
         marzban restart
         DB_PASSWORD=$(grep '^MYSQL_ROOT_PASSWORD=' "$ENV_FILE" | cut -d'=' -f2)
