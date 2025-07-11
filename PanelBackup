@@ -94,6 +94,8 @@ function main_menu {
         unzip ac-backup-m.zip
         cp -r /root/ac-backup-m/opt/marzban /opt/
         cp -r /root/ac-backup-m/var/lib/marzban /var/lib/
+        marzban restart
+        docker exec -i marzban-mysql-1 mysql -u root -p"DB_PASSWORD" marzban < "SQL_BACKUP_ADDRESS"
     fi
 }
 main_menu
