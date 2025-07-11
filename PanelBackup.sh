@@ -8,17 +8,13 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Declare Paths & Settings.
-SYS_PATH="/etc/sysctl.conf"
-PROF_PATH="/etc/profile"
-SSH_PORT=""
-SSH_PATH="/etc/ssh/sshd_config"
-SWAP_PATH="/swapfile"
-SWAP_SIZE=2G
+ENV_FILE="/root/ac-backup-m/opt/marzban/.env"
+SQL_BACKUP_ADDRESS="/root/ac-backup-m.zip/var/lib/marzban/mysql/db-backup/marzban.sql"
 
 function main_menu {
     clear
     cd
-    read -p "Are you ready to setup the Node? (y/n): " pp
+    read -p "Are you ready to setup New Panel With Backup? (y/n): " pp
     # Convert input to lowercase
     pp_lowercase=$(echo "$pp" | tr '[:upper:]' '[:lower:]')
     # Check if the input is "y"
@@ -95,7 +91,9 @@ function main_menu {
         cp -r /root/ac-backup-m/opt/marzban /opt/
         cp -r /root/ac-backup-m/var/lib/marzban /var/lib/
         marzban restart
-        docker exec -i marzban-mysql-1 mysql -u root -p"DB_PASSWORD" marzban < "SQL_BACKUP_ADDRESS"
+        DB_PASSWORD=$(grep '^MYSQL_ROOT_PASSWORD=' "$ENV_FILE" | cut -d'=' -f2)
+        docker exec -i marzban-mysql-1 mysql -u root -p"$DB_PASSWORD" marzban < "$SQL_BACKUP_ADDRESS"
+        marzban restart
     fi
 }
 main_menu
