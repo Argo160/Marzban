@@ -1,0 +1,97 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+    clear
+    echo "You should run this script with root!"
+    echo "Use sudo -i to change user to root"
+    exit 1
+fi
+
+# Declare Paths & Settings.
+SYS_PATH="/etc/sysctl.conf"
+PROF_PATH="/etc/profile"
+SSH_PORT=""
+SSH_PATH="/etc/ssh/sshd_config"
+SWAP_PATH="/swapfile"
+SWAP_SIZE=2G
+
+function main_menu {
+    clear
+    cd
+    read -p "Are you ready to setup the Node? (y/n): " pp
+    # Convert input to lowercase
+    pp_lowercase=$(echo "$pp" | tr '[:upper:]' '[:lower:]')
+    # Check if the input is "y"
+    if [ "$pp_lowercase" = "y" ]; then
+        apt-get update && apt-get upgrade -y
+        echo
+        echo -e "\e[32mSystem Updated and Upgraded.\e[0m"  # Green color for UP
+        echo
+        sleep 0.5
+        echo -e "\033[33mInstalling Curl...\033[0m" #yellow Color
+        apt-get install -y curl
+        if command -v curl > /dev/null; then
+            echo
+            echo -e "\e[32mCurl Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
+        else
+            echo
+            echo -e "\033[31mCurl is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
+        fi
+        
+        echo
+        echo -e "\033[33mInstalling socat...\033[0m" #yellow Color
+        echo
+        sleep 0.5
+        apt-get install -y socat
+        if command -v socat > /dev/null; then
+            echo
+            echo -e "\e[32msocat Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
+        else
+            echo
+            echo -e "\033[31msocat is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
+        fi
+
+        echo
+        echo -e "\033[33mInstalling unzip...\033[0m" #yellow Color
+        apt-get install -y unzip
+        if command -v unzip > /dev/null; then
+            echo
+            echo -e "\e[32munzip Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
+        else
+            echo
+            echo -e "\033[31munzip is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
+        fi
+
+        echo
+        echo -e "\033[33mInstalling git...\033[0m" #yellow Color
+        apt-get install -y git
+        if command -v git > /dev/null; then
+            echo
+            echo -e "\e[32mgit Installed.\e[0m"  # Green color for UP
+            echo
+            sleep 0.5
+        else
+            echo
+            echo -e "\033[31mgit is not installed.\033[0m"  # Print in red
+            echo
+            sleep 0.5
+        fi
+        sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+        marzban cli admin create --sudo
+        cd
+        unzip ac-backup-m.zip
+    fi
+}
+main_menu
