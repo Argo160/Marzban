@@ -92,6 +92,8 @@ function main_menu {
         marzban cli admin create --sudo
         cd
         unzip ac-backup-m.zip
+        cp -r /root/ac-backup-m/opt/marzban /opt/
+        cp -r /root/ac-backup-m/var/lib/marzban /var/lib/
     fi
 }
 main_menu
