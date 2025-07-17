@@ -85,6 +85,10 @@ function main_menu {
             sleep 0.5
         fi
         nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
+        echo "⏳ Waiting for docker to be installed"
+        while ! command -v docker >/dev/null; do
+            sleep 2
+        done
         while true; do
             FOUND_COUNT=$(docker ps -a --format '{{.Names}}' | grep -E '^marzban-(phpmyadmin|marzban|mysql)-1$' | wc -l)
             if [ "$FOUND_COUNT" -eq 3 ]; then
