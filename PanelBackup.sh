@@ -86,11 +86,11 @@ function main_menu {
         fi
         nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
         while true; do
-            if docker ps -a --format '{{.Names}}' | grep -q 'marzban-marzban-1'; then
-                echo "✅ Marzban Is Installed."
+            FOUND_COUNT=$(docker ps -a --format '{{.Names}}' | grep -E '^marzban-(phpmyadmin|marzban|mysql)-1$' | wc -l)
+            if [ "$FOUND_COUNT" -eq 3 ]; then
+                echo "✅ هر سه کانتینر مرزبان نصب شده‌اند."
                 break
             fi
-            echo "⏳ Waiting for Marzban To be Installed..."
             sleep 2
         done
         cd
