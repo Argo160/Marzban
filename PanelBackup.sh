@@ -84,16 +84,16 @@ function main_menu {
             echo
             sleep 0.5
         fi
-        expect << 'EOF'
-        spawn bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
-        expect {
-            -timeout 60
-            "Press" { send "\x03"; exp_continue }
-            "logs" { send "\x03"; exp_continue }
-            "Enter" { send "\x03"; exp_continue }
-            eof
-        }
-        EOF
+expect << 'EOF'
+spawn bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+expect {
+    -timeout 60
+    "Press" { send "\x03"; exp_continue }
+    "logs" { send "\x03"; exp_continue }
+    "Enter" { send "\x03"; exp_continue }
+    eof
+}
+EOF
         cd
         mkdir -p "ac-backup-m"
         unzip ac-backup-m.zip -d "ac-backup-m"
