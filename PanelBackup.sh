@@ -84,7 +84,7 @@ function main_menu {
             echo
             sleep 0.5
         fi
-        sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+        nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
         marzban cli admin create --sudo
         cd
         mkdir -p "ac-backup-m"
