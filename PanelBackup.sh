@@ -89,6 +89,10 @@ function main_menu {
         while ! command -v docker >/dev/null; do
             sleep 2
         done
+        while [ ! -S /var/run/docker.sock ]; do
+            sleep 2
+        done
+        sudo systemctl start docker
         while true; do
             FOUND_COUNT=$(docker ps -a --format '{{.Names}}' | grep -E '^marzban-(phpmyadmin|marzban|mysql)-1$' | wc -l)
             if [ "$FOUND_COUNT" -eq 3 ]; then
