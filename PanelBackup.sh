@@ -85,6 +85,14 @@ function main_menu {
             sleep 0.5
         fi
         nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
+        while true; do
+            if docker ps -a --format '{{.Names}}' | grep -q 'marzban-marzban-1'; then
+                echo "✅ Marzban Is Installed."
+                break
+            fi
+            echo "⏳ Waiting for Marzban To be Installed..."
+            sleep 2
+        done
         cd
         mkdir -p "ac-backup-m"
         unzip ac-backup-m.zip -d "ac-backup-m"
