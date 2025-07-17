@@ -85,9 +85,6 @@ function main_menu {
             sleep 0.5
         fi
         nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
-        clear
-        echo -e "\e[32mCreating marzban Admin:(Usernam/Password)\e[0m"  # Green color for UP
-        marzban cli admin create --sudo
         cd
         mkdir -p "ac-backup-m"
         unzip ac-backup-m.zip -d "ac-backup-m"
