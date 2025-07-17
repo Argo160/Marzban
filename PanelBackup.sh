@@ -19,7 +19,7 @@ function main_menu {
     pp_lowercase=$(echo "$pp" | tr '[:upper:]' '[:lower:]')
     # Check if the input is "y"
     if [ "$pp_lowercase" = "y" ]; then
-        apt-get update && apt-get upgrade -y
+        apt-get update && apt-get install -y expect
         echo
         echo -e "\e[32mSystem Updated and Upgraded.\e[0m"  # Green color for UP
         echo
@@ -84,23 +84,16 @@ function main_menu {
             echo
             sleep 0.5
         fi
-        nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install > /dev/null 2>&1 &
-        echo "⏳ Waiting for docker to be installed"
-        while ! command -v docker >/dev/null; do
-            sleep 2
-        done
-        while [ ! -S /var/run/docker.sock ]; do
-            sleep 2
-        done
-        sudo systemctl start docker
-        while true; do
-            FOUND_COUNT=$(docker ps -a --format '{{.Names}}' | grep -E '^marzban-(phpmyadmin|marzban|mysql)-1$' | wc -l)
-            if [ "$FOUND_COUNT" -eq 3 ]; then
-                echo "✅ هر سه کانتینر مرزبان نصب شده‌اند."
-                break
-            fi
-            sleep 2
-        done
+        expect << 'EOF'
+        spawn bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+        expect {
+            -timeout 60
+            "Press" { send "\x03"; exp_continue }
+            "logs" { send "\x03"; exp_continue }
+            "Enter" { send "\x03"; exp_continue }
+            eof
+        }
+        EOF
         cd
         mkdir -p "ac-backup-m"
         unzip ac-backup-m.zip -d "ac-backup-m"
